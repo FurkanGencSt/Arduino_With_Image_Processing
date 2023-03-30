@@ -1,0 +1,38 @@
+#include <Servo.h>
+
+Servo servoMotor_1;
+const byte potansiyometre = A0;
+int potansiyometre_deger;
+
+void setup() {
+Serial.begin(9600);
+  servoMotor.attach(9); // servo motor pinini 9 numaralı pine bağla
+}
+
+void loop() {
+	potansiyometre_deger = analogRead(potansiyometre);
+	servoMotor_1.write(potansiyometre_deger)
+}
+
+
+
+#include <Servo.h> // Servo kütüphanesini dahil ediyoruz
+
+Servo myservo; // Servo nesnesi oluşturuyoruz
+
+int incomingSignal = 0; // Gelen sinyal değeri için bir değişken tanımlıyoruz
+
+void setup() {
+  myservo.attach(9); // Servo motoru 9 numaralı pine bağlıyoruz
+  Serial.begin(9600); // Seri haberleşmeyi başlatıyoruz
+}
+
+void loop() {
+  if (Serial.available() > 0) { // Eğer seri haberleşmeden bir veri gelmişse
+    incomingSignal = Serial.read() - '0'; // Gelen veriyi okuyoruz ve integer'a çeviriyoruz
+    
+    if (incomingSignal == 3) { // Eğer gelen sinyal 3 ise
+      myservo.write(0); // Servo motoru 0 dereceye getiriyoruz
+    }
+  }
+}
